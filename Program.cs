@@ -2,46 +2,55 @@
 // длина которых меньше, либо равна 3 символам. Первоначальный массив можно ввести с клавиатуры, либо 
 // задать на старте выполнения алгоритма. При решении рекомендуется пользоваться массивами.
 
-Console.Write("Введите количество элементов массива: ");
 
-int m = Convert.ToInt32(Console.ReadLine());
-string [] stringArray = new string [m];
-void array(string [] stringArray)
+string[] FillArray()
 {
-  for (int i = 0;i<stringArray.Length;i++)
-  {
-     Console.WriteLine("Введите следующий элемент массива");
-     stringArray[i] = Console.ReadLine();
-  }
-}
-string [] symbol(string [] stringArray)
-{
-  int n = 0;
-  for (int i = 0;i<stringArray.Length;i++)
-  {
-    if(stringArray[i].Length <=3)
-    n++;
-  }
-  string [] rez = new string [n];
-  int j = 0;
-  for (int i = 0;i<stringArray.Length;i++)
-  {
-    if(stringArray[i].Length <=3)
+    Console.Write("Введите размер массива: ");
+    int size = Convert.ToInt32(Console.ReadLine());
+    string[] array = new string[size];
+    for (int i = 0; i < size; i += 1)
     {
-        rez[j] = stringArray[i];
-        j++;
+        Console.Write($"Введите {i + 1} элемент массива: ");
+        array[i] = Console.ReadLine();
     }
-  }
-  return rez;
+    return array;
 }
-void printA(string [] stringArray)
+// Функция для вывода в консоль массивов
+void PrintArray(string[] array)
 {
     Console.Write("[");
-    for (int i = 0;i<stringArray.Length;i++)
-    {
-    Console.Write(stringArray[i]+ ",");
-    }
-    Console.WriteLine("]");
+    for (int i = 0; i < array.Length - 1; i += 1)
+        Console.Write($"“{array[i]}”, ");
+    Console.Write($"“{array[array.Length-1]}”]");
+    Console.WriteLine();
 }
-array(stringArray);
-printA(symbol(stringArray));
+// Функция для формирования нового массива строк из имеющегося массива строк, 
+// длина которых меньше, либо равна 3 символам
+string[] ResultArray(string[] array)
+{
+    int sz = 0;
+    int j = 0;
+    for (int i = 0; i < array.Length; i += 1)
+    {
+        if (array[i].Length <= 3) sz += 1;
+    }
+    string[] arrayRes = new string[sz];
+    for (int i = 0; i < array.Length; i += 1)
+     {
+        if (array[i].Length <= 3)
+        {
+            arrayRes[j] = array[i];
+            j += 1;
+        }
+    }
+    return arrayRes;
+}
+
+string[] arraySet = FillArray();
+Console.WriteLine();
+Console.WriteLine("Первоначально заданный массив:");
+PrintArray(arraySet);
+Console.WriteLine();               
+string[] arrayRes = ResultArray(arraySet);
+Console.WriteLine("Новый массив из строк, длина которых меньше, либо равна 3 символам:");
+PrintArray(arrayRes);
